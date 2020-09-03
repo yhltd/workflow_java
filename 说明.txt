@@ -1,0 +1,5 @@
+﻿开发工具：idea
+数据库：yhcon/yao/{zheng_020826_config,zheng-020826_gameInfo,zheng-020826_model,zheng-020826_userInfo}
+数据库类型：sql server
+框架：前端jquery，html 后端：servlet3.0
+应用池：tomcat7.0

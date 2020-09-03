@@ -1,0 +1,155 @@
+.boby{
+    height: 100%;
+    width: 100%;
+}
+
+.top_boby{
+    height: 100px;
+    width: 100%;
+    z-index: 20;
+    box-shadow: 0 5px 15px #E6E6E6;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    align-items: center;
+    display: flex;
+    padding-left: 30px;
+}
+.top_boby_left{
+    height: 100%;
+    border-right: 1px solid;
+    border-image: linear-gradient(white, #e6e6e6,white) 10 80 10;
+    font-weight: bold;
+}
+.top_boby_right{
+    height: 100%;
+    width: 30%;
+    box-shadow: -20px 0px 20px 0px #e6e6e6;
+}
+
+.top_boby_option{
+    width: 500px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 80%;
+    overflow-x: scroll;
+}
+.option_div{
+    width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.option_item{
+    zoom: 1.5;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.option_lable{
+    font-size: 8px;
+    display: block;
+    width: 70px;
+    height: 20px;
+    text-align: start;
+    padding-left: 5px;
+    line-height: 20px;
+}
+.sumSpace_text{
+    width: 130px;
+    font-weight: bold;
+    color: #2F4056;
+    font-size: 21px;
+    height: auto;
+}
+.table_boby{
+    width: 100%;
+    margin-top: 40px;
+    background-color: #f2f2f2;
+}
+.table_tr_header{
+    height: 70px;
+    background-color: #2F4056;
+}
+.table_th{
+    color: white;
+}
+.table_tr{
+    height: 60px;
+}
+.table_td{
+    padding-left: 20px;
+    border: none;
+    background-color: white;
+}
+.td_checkbox{
+    zoom: 1.5;
+}
+.td_new{
+    font-weight: bold;
+    color: #ff0000;
+    margin-right: 10px;
+}
+.go{
+    width: 100px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: #30455a;
+    color: white;
+    line-height: 30px;
+    margin-left: 90px;
+    font-weight: bold;
+}
+.go:active{
+    width: 100px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: #1A232F;
+    color: white;
+    line-height: 30px;
+    margin-left: 90px;
+    font-weight: bold;
+}
+
+.form_input{
+    margin: auto;
+    display: block;
+    margin-top: 40px;
+    height: 30px;
+    border: 1px solid #e6e6e6;
+    padding-left: 10px;
+    border-radius: 3px;
+}
+.form_bt{
+    width: 100px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: #30455a;
+    color: white;
+    line-height: 30px;
+    margin: auto;
+    display: block;
+    margin-top: 30px;
+}
+.form_bt:active{
+    width: 100px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: #1A232F;
+    color: white;
+    line-height: 30px;
+    margin: auto;
+    display: block;
+    margin-top: 30px;
+}

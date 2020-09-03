@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理</title>
+    <link rel="stylesheet" href="static/css/user.css" type="text/css">
+</head>
+<body style="margin: 0;">
+    <script src="static/js/jquery.js" type="text/javascript"></script>
+    <script src="static/js/user.js" type="text/javascript"></script>
+
+    <div class="boby">
+        <div class="boby_left">
+            <div class="pwd_div">
+                <div class="text_ModelName">修改密码</div>
+                <input class="updPwd_input" placeholder="新密码" value="">
+                <input class="updPwd_bt" type="button" onclick="javascript:updPwd()" value="提交">
+            </div>
+            <div class="option_div">
+                <div class="text_ModelName">平台配置</div>
+                <div class="top_fun">
+                    <button class="option_div_bt" onclick="javascript:del_option()">删除</button>
+                    <button class="option_div_bt" onclick="javascript:new_option()">新增</button>
+                    <button class="option_div_bt" onclick="javascript:save_option()">保存</button>
+                </div>
+                <table class="option_table">
+                    <tr class="option_table_tr">
+                        <th class="option_table_th">选择</th>
+                        <th class="option_table_th">平台</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="boby_right_div">
+
+            <div id="list" class="boby_right">
+                <div class="list_mask"></div>
+                <div class="text_ModelName">游戏列表</div>
+                <div id="list_div" class="list_div">
+                    <div class="top_fun">
+                        <button class="option_div_bt" onclick="javascript:del_list()">删除</button>
+                        <button class="option_div_bt" onclick="javascript:new_list()">新增</button>
+                        <button class="option_div_bt" onclick="javascript:save_list()">保存</button>
+                    </div>
+                    <table class="list_table">
+                        <tr class="list_table_tr">
+                            <th class="list_table_th">选择</th>
+                            <th class="list_table_th">游戏名</th>
+                            <th class="list_table_th">容量(KB)</th>
+                            <th class="list_table_th">所属平台</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="boby_right">
+                <div class="text_ModelName">用户提交名单</div>
+
+                <div class="list_div">
+                    <div class="top_fun">
+                        <button class="option_div_bt" onclick="javascript:del_list_user()">删除</button>
+                    </div>
+
+                    <table class="list_table_user">
+                        <tr class="list_table_tr_user">
+                            <th class="list_table_th_user">选择</th>
+                            <th class="list_table_th_user">用户手机号</th>
+                            <th class="list_table_th_user">游戏列表</th>
+                            <th class="list_table_th_user">创建时间</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mask" onclick="javascript:hide()"></div>
+</body>
+</html>

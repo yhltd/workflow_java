@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="static/css/updInfo.css" type="text/css">
+</head>
+<body style="height: 100%;margin: 0;">
+    <script type="text/javascript" src="static/js/jquery.js"></script>
+    <script type="text/javascript" src="static/js/updInfo.js"></script>
+
+    <div class="auto">
+        <div class="auto_div">
+            <div class="top">
+                <div class="top_div">
+                    <p>用户手机号</p>
+                    <input id="number" oninput="javascript:updNumber(this.value)" type="number">
+                </div>
+                <div class="top_div">
+                    <p>创建时间</p>
+                    <input id="time" oninput="javascript:updTime(this.value)" type="datetime-local">
+                </div>
+            </div>
+            <div class="table">
+                <div class="table_fun">
+                    <div class="fun">
+                        <button class="fun_bt" onclick="javascript:newUpd()">新增</button>
+                        <button class="fun_bt" onclick="javascript:delUpd()">删除</button>
+                    </div>
+                </div>
+                <ul class="table_header_ul">
+                    <li class="table_header_li">选择</li>
+                    <li class="table_header_li">游戏名</li>
+                    <li class="table_header_li">所属平台</li>
+                </ul>
+                <div class="table_main">
+
+                </div>
+            </div>
+            <div class="bottom">
+                <button class="bottom_bt" onclick="save()">保存</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

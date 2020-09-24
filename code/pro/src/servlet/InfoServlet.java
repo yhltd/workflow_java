@@ -35,6 +35,9 @@ public class InfoServlet extends javax.servlet.http.HttpServlet {
             case "del":
                 json = delInfo(request.getParameter("delList"));
                 break;
+            case "upd":
+                json = updInfo(request.getParameter("updList"),request.getParameter("oldNumber"),request.getParameter("oldTime"));
+                break;
         }
 
         PrintWriter out = response.getWriter();
@@ -74,6 +77,16 @@ public class InfoServlet extends javax.servlet.http.HttpServlet {
     public String delInfo(String delList){
         infoService = new InfoService();
         int result = infoService.delList(delList);
+        Map<String,Boolean> map = new HashMap<>();
+        map.put("res",result>0);
+        JsonUtil ju = new JsonUtil();
+        String json = ju.toJson(map);
+        return json;
+    }
+
+    public String updInfo(String updList,String oldNumber,String oldTime){
+        infoService = new InfoService();
+        int result = infoService.updList(updList,oldNumber,oldTime);
         Map<String,Boolean> map = new HashMap<>();
         map.put("res",result>0);
         JsonUtil ju = new JsonUtil();

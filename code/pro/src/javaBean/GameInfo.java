@@ -42,10 +42,12 @@ public class GameInfo {
     }
 
     public void setDate(Date date) {
-        long time_old = date.getTime();
-        long time_now = new Date().getTime();
-        this.isNew = !(time_old+this.isNewTime*86400000<time_now);
-        this.date = date;
+        if(!date.equals("")){
+            long time_old = date.getTime();
+            long time_now = new Date().getTime();
+            this.isNew = !(time_old+this.isNewTime*86400000<time_now);
+            this.date = date;
+        }
     }
 
     public Model getModel() {

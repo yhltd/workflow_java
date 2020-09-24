@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>管理</title>
     <link rel="stylesheet" href="static/css/user.css" type="text/css">
+    <link rel="stylesheet" href="static/iframe_d/iframe_d.css" type="text/css">
 </head>
 <body style="margin: 0;">
     <script src="static/js/jquery.js" type="text/javascript"></script>
     <script src="static/js/user.js" type="text/javascript"></script>
+    <script src="static/iframe_d/iframe_d.js"></script>
 
     <div class="boby">
         <div class="boby_left">
@@ -22,6 +24,9 @@
                     <button class="option_div_bt" onclick="javascript:del_option()">删除</button>
                     <button class="option_div_bt" onclick="javascript:new_option()">新增</button>
                     <button class="option_div_bt" onclick="javascript:save_option()">保存</button>
+                </div>
+                <div class="sel_div" style="width: 100%;">
+                    <input class="sel_input" oninput="javascript:selInput(this.value)" placeholder="按平台名称搜索"/>
                 </div>
                 <table class="option_table">
                     <tr class="option_table_tr">
@@ -42,6 +47,9 @@
                         <button class="option_div_bt" onclick="javascript:new_list()">新增</button>
                         <button class="option_div_bt" onclick="javascript:save_list()">保存</button>
                     </div>
+                    <div class="sel_div_right">
+                        <input class="sel_input_right" oninput="javascript:selInput_games(this.value)" placeholder="按游戏名搜索">
+                    </div>
                     <table class="list_table">
                         <tr class="list_table_tr">
                             <th class="list_table_th">选择</th>
@@ -57,9 +65,12 @@
 
                 <div class="list_div">
                     <div class="top_fun">
+                        <button class="option_div_bt" onclick="javascript:upd_list_user()">修改</button>
                         <button class="option_div_bt" onclick="javascript:del_list_user()">删除</button>
                     </div>
-
+                    <div class="sel_div_right">
+                        <input class="sel_input_right" oninput="javascript:selInput_users(this.value)" placeholder="按手机号搜索">
+                    </div>
                     <table class="list_table_user">
                         <tr class="list_table_tr_user">
                             <th class="list_table_th_user">选择</th>
@@ -74,5 +85,7 @@
     </div>
 
     <div class="mask" onclick="javascript:hide()"></div>
+
+    <div class="iframe_d"></div>
 </body>
 </html>

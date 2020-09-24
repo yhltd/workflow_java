@@ -5,7 +5,7 @@ $(function (){
         return ;
     }
     var param = location.split("=")
-    if(param[0]!="pwd" && param[1]!="" || param[1]!=undefined){
+    if(param[0]=="pwd" && (param[1]!="" || param[1]!=undefined)){
         $.ajax({
             type : "POST",
             url : "user",
@@ -311,8 +311,8 @@ function new_list(){
         "<td class='list_table_td'>" +
             "<input class='td_input' value=''/>" +
         "</td>" +
-            "<td class='list_table_td'>" +
-        "<input class='td_input' value=''/>" +
+        "<td class='list_table_td'>" +
+            "<input class='td_input' value=''/>" +
         "</td>" +
         "<td class='list_table_td'>" +
         "<select class='list_table_td_option'>";
@@ -391,10 +391,6 @@ function setUserList(){
     var htmlStr = "";
 
     for(let i=0;i<userList.length;i++){
-        let times = userList[i].createTime.split(" ");
-        let time1 = times[0].split("-")
-        let time2 = times[1].split(":")
-        let time = time1[0]+"年"+time1[1]+"月"+time1[2]+"日 "+time2[0]+"时"+time2[1]+"分"+time2[2]+"秒"
         htmlStr +=
             "<tr class='list_table_tr_user'>" +
                 "<td class='list_table_td_user'>" +
@@ -407,7 +403,7 @@ function setUserList(){
                     "<input class='choiceGame_bt' type='button' onclick='javascript:choiceGame("+i+")' value='点击查看'/>" +
                 "</td>" +
                 "<td class='list_table_td_user'>" +
-                        time +
+                    userList[i].createTime +
                 "</td>" +
             "</tr>"
     }
@@ -466,20 +462,20 @@ function hide(){
     }
 }
 
-var infoCheckItems = []
+infoCheckItems  = []
 function choiceCheck_userlist(e){
     let index = parseInt(e);
-    if(infoCheckItems.length==0){
-        infoCheckItems.push({number:userList[index].number,createTime:userList[index].createTime})
-    }else{
-        for(var i=0;i<infoCheckItems.length;i++){
-            if(infoCheckItems[i].number==e){
-                infoCheckItems.splice(i,1)
-                return ;
-            }
+    for(let i=0;i<infoCheckItems.length;i++){
+        if(infoCheckItems[i].number==userList[i].number){
+            infoCheckItems.splice(i,1)
+            return ;
         }
-        infoCheckItems.push({number:parseInt(e)})
     }
+    infoCheckItems.push({
+        number:userList[index].number,
+        createTime:userList[index].createTime,
+        index :index
+    })
 }
 
 function del_list_user(){
@@ -498,8 +494,8 @@ function del_list_user(){
                     let number = infoCheckItems[i].number
                     let time = infoCheckItems[i].createTime
                     for(let j=1;j<$(".list_table_tr_user").length;j++){
-                        let number1 = $(".list_table_tr_user:eq("+j+") td:eq(0) input").val();
-                        let time1 = $(".list_table_tr_user:eq("+j+") td:eq(2) input").val();
+                        let number1 = $(".list_table_tr_user:eq("+j+") td:eq(0)").text();
+                        let time1 = $(".list_table_tr_user:eq("+j+") td:eq(2)").text();
                         if(number==number1 && time==time1){
                             $(".list_table_tr_user:eq("+j+")").remove();
                         }
@@ -515,3 +511,98 @@ function del_list_user(){
         }
     })
 }
+
+
+function selInput(e){
+    for(let i=1;i<$(".option_table_tr").length;i++){
+        let value = $(".option_table_tr:eq("+i+") .option_table_td:eq(1) input").val();
+        if(value.indexOf(e) == -1){
+            $(".option_table_tr:eq("+i+")").css("display","none")
+        }else{
+            $(".option_table_tr:eq("+i+")").css("display","table-row")
+        }
+    }
+}
+
+function selInput_games(e){
+    for(let i=1;i<$(".list_table_tr").length;i++){
+        let value = $(".list_table_tr:eq("+i+") .list_table_td:eq(1) input").val();
+        if(value.indexOf(e) == -1){
+            $(".list_table_tr:eq("+i+")").css("display","none")
+        }else{
+            $(".list_table_tr:eq("+i+")").css("display","table-row")
+        }
+    }
+}
+
+function selInput_users(e){
+    for(let i=1;i<$(".list_table_tr").length;i++){
+        let value = $(".list_table_tr_user:eq("+i+") .list_table_td_user:eq(1)").text();
+        if(value.indexOf(e) == -1){
+            $(".list_table_tr_user:eq("+i+")").css("display","none")
+        }else{
+            $(".list_table_tr_user:eq("+i+")").css("display","table-row")
+        }
+    }
+}
+
+function upd_list_user(){
+    if(infoCheckItems.length==0){
+        alert("请选择某一订单")
+        return;
+    }else if(infoCheckItems.length>1){
+        alert("只能修改单个订单")
+        return;
+    }
+
+
+    iframe_d_open({
+        id : "upd",
+        title: "订单详情",//头部
+        shadeClose: true, //点击遮罩层关闭
+        area: {            //弹窗大小
+            x: '600',
+            y: '500'
+        },
+        content: 'updInfo.html',      //路径
+        maxmin: false,      //最大化最小化按钮
+        z_index: 99        //层级
+    })
+
+    let number = infoCheckItems[0].number;
+    let times = infoCheckItems[0].createTime.split(" ")
+    let time = times[0]+" "+times[1];
+    $.ajax({
+        type : 'POST',
+        url : 'info',
+        data : {
+            type : 'getGame',
+            number : number,
+            time : time
+        },
+        data_type : 'json',
+        success : function (data){
+            let result = data.split(",")
+            let gameList = [];
+            for(let i=0;i<result.length;i++){
+                for(let j=0;j<list.length;j++){
+                    if(list[j].id==result[i]){
+                        list[j].date = times[0]
+                        gameList.push(list[j])
+                        break;
+                    }
+                }
+            }
+            let updList = {
+                id : infoCheckItems[0].index,
+                number : number,
+                infoList : gameList,
+                createTime : time
+            }
+            $("#upd")[0].contentWindow.gameList = list
+            $("#upd")[0].contentWindow.updList = updList
+            $("#upd")[0].contentWindow.showList()
+        }
+    })
+}
+

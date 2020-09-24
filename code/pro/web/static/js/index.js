@@ -1,5 +1,4 @@
 $(function(){
-    getList()
     getOption()
 })
 
@@ -19,6 +18,7 @@ function getOption(){
         success : function (data){
             options = data
             setOption()
+            getList()
         },
         err : function (err){
             console.log(err)
@@ -62,7 +62,7 @@ function setList(){
             "</tr>"
     }
     $(".table_boby").append(htmlStr)
-    choiceItem(1)
+    choiceItem(options[0].id)
 }
 
 function setOption(){

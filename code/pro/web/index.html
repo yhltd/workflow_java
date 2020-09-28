@@ -24,6 +24,7 @@
             <div class="sumSpace_text">共计：0G</div>
 
             <input class="go" type="button" value="GO" onclick="javascript:go()"></input>
+            <input class="go old" type="button" value="历史记录" onclick="javascript:toOld()"></input>
         </div>
         <table class="table_boby">
             <tr class="table_tr_header">
@@ -34,7 +35,17 @@
         </table>
     </div>
 
+    <div id="go_div" class="go_div" style="display: none">
+        <div class='main'>
+            <input class='form_input' oninput='javascript:getNumber(this.value)' type='number' placeholder='请输入手机号'/>
+            <div>
+                <button class='form_bt' onclick='javascript:setInfo()'>提交</button>
+                <button class='form_bt' onclick='javascript:closeGo()'>关闭</button>
+            </div>
+        </div>
+    </div>
 
+    <div class="mask" style="display: none"></div>
     <div class="iframe_d"></div>
 </body>
 </html>

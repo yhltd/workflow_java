@@ -28,7 +28,8 @@ public class InfoService {
 
         String sql = "";
         for(GameInfo gameInfo : userInfo.getInfoList()){
-            sql += "insert into zheng_020826_userInfo(number,game_id,time) values('"+userInfo.getNumber()+"','"+gameInfo.getId()+"','"+time+"');";
+            sql += "insert into zheng_020826_userInfo(number,game_id,time) values('"+userInfo.getNumber()+"','"+gameInfo.getId()+"','"+time+"');"+
+            "insert into ";
         }
 
         int result = dao.AllUpdate(sql,null);
@@ -77,6 +78,37 @@ public class InfoService {
             dao.closeAll(null,null,rs);
         }
         return result;
+    }
+
+    public List<UserInfo> getHistoryInfo(String number){
+        dao = new BaseDao();
+        String sql = "select g.name,(select name from zheng_020826_model where id = g.model_id) as model,u.[time] from zheng_020826_gameInfo as g LEFT JOIN zheng_020826_userInfo as u on g.id = u.game_id where u.number = "+number;
+        ResultSet rs = dao.SelectAll(sql,null);
+        List<UserInfo> uList = new ArrayList<>();
+
+        try {
+            while(rs.next()){
+                UserInfo userInfo = new UserInfo();
+                userInfo.setCreateTime(rs.getString("time"));
+
+                List<GameInfo> gameInfoList = new ArrayList<>();
+                GameInfo gameInfo = new GameInfo();
+                gameInfo.setName(rs.getString("name"));
+
+                Model model = new Model();
+                model.setName(rs.getString("model"));
+
+                gameInfo.setModel(model);
+                gameInfoList.add(gameInfo);
+                userInfo.setInfoList(gameInfoList);
+                uList.add(userInfo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dao.closeAll(null,null,rs);
+        }
+        return uList;
     }
 
 

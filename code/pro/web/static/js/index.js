@@ -147,28 +147,24 @@ function go(){
         alert("未选择游戏")
         return;
     }
-    iframe_d_open({
-        title: "游戏采购单",//头部
-        shadeClose: true, //点击遮罩层关闭
-        area: {            //弹窗大小
-            x: '600',
-            y: '500'
-        },
-        content: '',      //路径
-        maxmin: true,      //最大化最小化按钮
-        z_index: 21        //层级
-    })
-
-    var htmlStr = "<div class='main'>" +
-            "<input class='form_input' oninput='javascript:getNumber(this.value)' type='number' placeholder='请输入手机号'/>" +
-            "<button class='form_bt' onclick='javascript:setInfo()'>提交</button>" +
-        "</div>"
-
-    $(".iframe_d_main").append(htmlStr)
+    openGO()
 }
 
 function getNumber(e){
     info.number = e;
+}
+function getPwd(e){
+    info.pwd = e;
+}
+
+function openGO(){
+    $(".mask").css("display","block")
+    $("#go_div").css("display","block")
+}
+
+function closeGo(){
+    $(".mask").css("display","none")
+    $("#go_div").css("display","none")
 }
 
 function setInfo(){
@@ -183,12 +179,29 @@ function setInfo(){
         success : function (data){
             if(data.res){
                 alert("提交成功")
-                iframe_d_close();
+                closeGo()
+            }else{
+                alert("提交失败")
             }
         },
         err : function (err){
+            alert("提交错误")
             console.log(err)
         }
     })
 }
 
+function toOld(){
+    iframe_d_open({
+        id : "old",
+        title: "历史记录",//头部
+        shadeClose: true, //点击遮罩层关闭
+        area: {            //弹窗大小
+            x: '600',
+            y: '500'
+        },
+        content: 'old.html',      //路径
+        maxmin: false,      //最大化最小化按钮
+        z_index: 99        //层级
+    })
+}

@@ -38,6 +38,9 @@ public class InfoServlet extends javax.servlet.http.HttpServlet {
             case "upd":
                 json = updInfo(request.getParameter("updList"),request.getParameter("oldNumber"),request.getParameter("oldTime"));
                 break;
+            case "his":
+                json = getHistoryList(request.getParameter("number"));
+                break;
         }
 
         PrintWriter out = response.getWriter();
@@ -89,6 +92,16 @@ public class InfoServlet extends javax.servlet.http.HttpServlet {
         int result = infoService.updList(updList,oldNumber,oldTime);
         Map<String,Boolean> map = new HashMap<>();
         map.put("res",result>0);
+        JsonUtil ju = new JsonUtil();
+        String json = ju.toJson(map);
+        return json;
+    }
+
+    public String getHistoryList(String number){
+        infoService = new InfoService();
+        List<UserInfo> uList = infoService.getHistoryInfo(number);
+        Map<String,List<UserInfo>> map = new HashMap<>();
+        map.put("res",uList);
         JsonUtil ju = new JsonUtil();
         String json = ju.toJson(map);
         return json;

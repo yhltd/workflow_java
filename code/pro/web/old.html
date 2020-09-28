@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="static/css/old.css" type="text/css"/>
+</head>
+<body style="height: 100%">
+    <script type="text/javascript" src="static/js/jquery.js"></script>
+    <script type="text/javascript" src="static/js/old.js"></script>
+
+    <div class="top">
+        <div class="top_div">
+            <p>用户手机号</p>
+            <input id="number" type="number">
+        </div>
+        <div class="top_div">
+            <input onclick="javascript:sel()" type="button" value="查询">
+        </div>
+    </div>
+    <div class="table" style="height: 382.5px">
+        <ul class="table_header_ul">
+            <li class="table_header_li">游戏名</li>
+            <li class="table_header_li">所属平台</li>
+            <li class="table_header_li">时间</li>
+        </ul>
+        <div class="table_main">
+            <img id="empty_select" style="display: none" src="static/img/empty_select.png"/>
+        </div>
+    </div>
+</body>
+</html>

@@ -400,7 +400,7 @@ function setUserList(){
                         userList[i].number +
                 "</td>" +
                 "<td class='list_table_td_user' >" +
-                    "<input class='choiceGame_bt' type='button' onclick='javascript:choiceGame("+i+")' value='点击查看'/>" +
+                    "<input class='choiceGame_bt' id='Excel2' type='button' onclick='javascript:choiceGame("+i+")' value='点击查看'/>" +
                 "</td>" +
                 "<td class='list_table_td_user'>" +
                     userList[i].createTime +
@@ -536,7 +536,7 @@ function selInput_games(e){
 }
 
 function selInput_users(e){
-    for(let i=1;i<$(".list_table_tr").length;i++){
+    for(let i=1;i<$(".list_table_tr_user").length;i++){
         let value = $(".list_table_tr_user:eq("+i+") .list_table_td_user:eq(1)").text();
         if(value.indexOf(e) == -1){
             $(".list_table_tr_user:eq("+i+")").css("display","none")
@@ -570,8 +570,7 @@ function upd_list_user(){
     })
 
     let number = infoCheckItems[0].number;
-    let times = infoCheckItems[0].createTime.split(" ")
-    let time = times[0]+" "+times[1];
+    let time = infoCheckItems[0].createTime;
     $.ajax({
         type : 'POST',
         url : 'info',
@@ -587,13 +586,12 @@ function upd_list_user(){
             for(let i=0;i<result.length;i++){
                 for(let j=0;j<list.length;j++){
                     if(list[j].id==result[i]){
-                        list[j].date = times[0]
                         gameList.push(list[j])
                         break;
                     }
                 }
             }
-            let updList = {
+            let updList={
                 id : infoCheckItems[0].index,
                 number : number,
                 infoList : gameList,
@@ -605,4 +603,92 @@ function upd_list_user(){
         }
     })
 }
+
+/*
+* 增加数据方法
+* */
+function ins_list_user(){
+
+    iframe_d_open({
+        id : "upd",
+        title: "新增用户信息",//头部
+        shadeClose: true, //点击遮罩层关闭
+        area: {            //弹窗大小
+            x: '600',
+            y: '500'
+        },
+        content: 'insert.jsp',      //路径
+        maxmin: false,      //最大化最小化按钮
+        z_index: 99        //层级
+    })
+}
+
+function base64 (content) {
+    return window.btoa(unescape(encodeURIComponent(content)));
+}
+/*
+*@tableId: table的Id
+*@fileName: 要生成excel文件的名字（不包括后缀，可随意填写）
+*/
+function tableToExcel(tableID,fileName){
+    var number="";
+    var timeqw="";
+    for(let i=1;i<$(".list_table_tr_user").length;i++){
+        var numnew=$(".list_table_tr_user:eq("+i+") .list_table_td_user:eq(1)").text()
+        var timenew=$(".list_table_tr_user:eq("+i+") .list_table_td_user:eq(3)").text()
+        if (i!=$(".list_table_tr_user").length-1){
+            number=numnew+","+number
+            timeqw=timenew+","+timeqw
+        }else {
+            number=number+numnew
+            timeqw=timeqw+timenew
+        }
+    }
+  inuserlist=[];
+    $.ajax({
+        type : "POST",
+        url : "excel",
+        dataType: 'json',
+        data : {
+            number : number,
+            time:timeqw
+        },
+        success : function (data){
+            inuserlist=data;
+            getexcel(inuserlist,fileName);
+        },
+        err : function (err){
+            console.log(err)
+        }
+    })
+    function getexcel(inuserlist,fileName){
+        alert("正在导出请稍等")
+        var str = '<tr><td>电话号码</td><td>创建订单时间</td><td>游戏名称</td><td>内存</td></tr>';
+        // 循环遍历，每行加入tr标签，每个单元格加td标签
+        for(var i = 0 ; i < inuserlist.length ; i++ ){
+            str=str+'<tr>';
+            str=str+"<td style='vnd.ms-excel.numberformat:@'>"+inuserlist[i].number+"</td>";
+            str=str+"<td style='vnd.ms-excel.numberformat:yyyy-mm-dd hh:mm:ss'>"+inuserlist[i].createTime+"</td>";
+            str=str+"<td>"+inuserlist[i].infoList[i].name+"</td>";
+            str=str+"<td>"+inuserlist[i].infoList[i].space+"</td>";
+            str=str+'</tr>';
+        }
+        // Worksheet名
+        const Sheet1= 'Sheet1'
+        var table = document.getElementById(tableID);
+        var excelContent = table.innerHTML;
+        var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
+        excelFile += "<head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head>";
+        excelFile += "<body><table>";
+        excelFile += str;
+        excelFile += "</table></body>";
+        excelFile += "</html>";
+        var link = "data:application/vnd.ms-excel;base64," + base64(excelFile);
+        var a = document.createElement("a");
+        a.download = fileName+".xls";
+        a.href = link;
+        a.click();
+    }
+}
+
 

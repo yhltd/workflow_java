@@ -1,16 +1,16 @@
 package servlet;
 
-import javaBean.UserInfo;
-import service.InfoService;
-import util.JsonUtil;
-
-import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.annotation.WebServlet;
+
+import javaBean.UserInfo;
+import service.InfoService;
+import util.JsonUtil;
 
 
 @WebServlet(name = "info", urlPatterns = { "/info" },asyncSupported = true)
@@ -56,8 +56,10 @@ public class InfoServlet extends javax.servlet.http.HttpServlet {
     public String newInfo(String infoList){
         infoService = new InfoService();
         int result = infoService.newInfo(infoList);
+        int results = infoService.newupfo(infoList);
         Map<String,Boolean> map = new HashMap<>();
         map.put("res",result>0);
+        map.put("ress",results>0);
         JsonUtil ju = new JsonUtil();
         String json = ju.toJson(map);
         return json;

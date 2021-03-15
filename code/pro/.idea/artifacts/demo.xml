@@ -9,7 +9,6 @@
         </element>
         <element id="directory" name="lib">
           <element id="file-copy" path="$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar" />
-          <element id="library" level="project" name="sqljdbc4-4.0" />
         </element>
       </element>
     </root>

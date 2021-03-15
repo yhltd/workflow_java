@@ -16,8 +16,6 @@ public class modelServlet extends javax.servlet.http.HttpServlet {
 
         modelService ms = new modelService();
         List<Model> list = ms.getList();
-
-
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();

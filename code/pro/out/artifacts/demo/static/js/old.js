@@ -1,5 +1,4 @@
 
-
 function sel(){
     $.ajax({
         type : "POST",
@@ -51,3 +50,4 @@ function hideEmpty(){
     $(".table_main").removeClass("empty")
     $("#empty_select").css("display","none")
 }
+

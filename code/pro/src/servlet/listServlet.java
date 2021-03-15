@@ -16,8 +16,6 @@ public class listServlet extends javax.servlet.http.HttpServlet {
 
         ListService ls = new ListService();
         List<GameInfo> list = ls.getList();
-
-
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();

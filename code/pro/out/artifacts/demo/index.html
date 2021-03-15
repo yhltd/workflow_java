@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>游戏选择</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="static/css/index.css" type="text/css">
     <link rel="stylesheet" href="static/iframe_d/iframe_d.css" type="text/css">
 </head>
@@ -22,7 +22,6 @@
             </div>
             <div class="top_boby_right"></div>
             <div class="sumSpace_text">共计：0G</div>
-
             <input class="go" type="button" value="GO" onclick="javascript:go()"></input>
             <input class="go old" type="button" value="历史记录" onclick="javascript:toOld()"></input>
         </div>
@@ -31,20 +30,19 @@
                 <th class="table_th">选择游戏</th>
                 <th class="table_th">游戏名</th>
                 <th class="table_th">容量</th>
+                <th class="table_th">游戏下载次数</th>
             </tr>
         </table>
     </div>
-
     <div id="go_div" class="go_div" style="display: none">
         <div class='main'>
-            <input class='form_input' oninput='javascript:getNumber(this.value)' type='number' placeholder='请输入手机号'/>
+            <input class='form_input' type='text' value='请输入电话号码'/>
             <div>
                 <button class='form_bt' onclick='javascript:setInfo()'>提交</button>
                 <button class='form_bt' onclick='javascript:closeGo()'>关闭</button>
             </div>
         </div>
     </div>
-
     <div class="mask" style="display: none"></div>
     <div class="iframe_d"></div>
 </body>

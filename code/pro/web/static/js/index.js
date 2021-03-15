@@ -44,22 +44,20 @@ function getList(){
 
 function setList(){
     var htmlStr = ""
-
     //循环添加表格信息
     for(var j=0;j<list.length;j++){
         var space = Math.round(list[j].space/1024*10)/10 + "G"
         htmlStr+="<tr class='table_tr'>" +
             "<td class='table_td'><input class='td_checkbox' onclick='javascript:choiceBox(this.value)' type='checkbox' value='"+list[j].id+":"+list[j].name+"'/></td>"+
             "<td class='table_td'>"
-
         //新游戏添加New
         if(!list[j].isNew){
-            htmlStr += list[j].name+"</td>"
+            htmlStr += list[j].name+"</td>";
         }else{
-            htmlStr += "<span class='td_new'>New</span>" + list[j].name+"</td>"
+            htmlStr += "<span class='td_new'>New</span>" + list[j].name+"</td>";
         }
-        htmlStr += "<td class='table_td'>"+space+"</td>" +
-            "</tr>"
+        htmlStr += "<td class='table_td'>"+space+"</td>"+"<td class='table_td'>"+list[j].num+"</td>"+
+            "</tr>";
     }
     $(".table_boby").append(htmlStr)
     choiceItem(options[0].id)
@@ -150,9 +148,6 @@ function go(){
     openGO()
 }
 
-function getNumber(e){
-    info.number = e;
-}
 function getPwd(e){
     info.pwd = e;
 }
@@ -168,27 +163,44 @@ function closeGo(){
 }
 
 function setInfo(){
-    $.ajax({
-        type : "POST",
-        url : "info",
-        dataType: 'json',
-        data : {
-            type : "new",
-            infoList : JSON.stringify(info)
-        },
-        success : function (data){
-            if(data.res){
-                alert("提交成功")
-                closeGo()
-            }else{
-                alert("提交失败")
+    info.number = $(".form_input").val();
+    var regMobilePhone = new RegExp(/^1[34578]\d{9}$/);
+    var regTelephone = new RegExp(/^((0\d{2,3})-?)(\d{7,8})(-(\d{3,}))?$/);
+    if (!(regMobilePhone.test(info.number) || regTelephone.test(info.number))) {
+        alert("对不起，手机号码无效请添加正确的手机号码")
+    }
+    else {
+        $.ajax({
+            type : "POST",
+            url : "info",
+            dataType: 'json',
+            data : {
+                type : "new",
+                infoList : JSON.stringify(info)
+            },
+            success : function (data){
+                if(data.res){
+                    alert("提交成功")
+                    closeGo()
+                    $(".table_boby").empty()
+                    var fristtr="<tr class=\"table_tr_header\">" +
+                        "                <th class=\"table_th\">选择游戏</th>" +
+                        "                <th class=\"table_th\">游戏名</th>" +
+                        "                <th class=\"table_th\">容量</th>" +
+                        "                <th class=\"table_th\">游戏下载次数</th>" +
+                        "            </tr>"
+                    $(".table_boby").append(fristtr)
+                    getOption()
+                }else{
+                    alert("提交失败")
+                }
+            },
+            err : function (err){
+                alert("提交错误")
+                console.log(err)
             }
-        },
-        err : function (err){
-            alert("提交错误")
-            console.log(err)
-        }
-    })
+        })
+    }
 }
 
 function toOld(){

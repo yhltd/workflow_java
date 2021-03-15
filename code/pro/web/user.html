@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="static/iframe_d/iframe_d.css" type="text/css">
 </head>
 <body style="margin: 0;">
+    <script src="static/js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="static/js/jquery.js" type="text/javascript"></script>
     <script src="static/js/user.js" type="text/javascript"></script>
     <script src="static/iframe_d/iframe_d.js"></script>
-
     <div class="boby">
         <div class="boby_left">
             <div class="pwd_div">
@@ -67,11 +67,13 @@
                     <div class="top_fun">
                         <button class="option_div_bt" onclick="javascript:upd_list_user()">修改</button>
                         <button class="option_div_bt" onclick="javascript:del_list_user()">删除</button>
+                        <button class="option_div_bt" onclick="javascript:ins_list_user()">增加</button>
+                        <input class="option_div_bt" type="button" onclick="tableToExcel('list_user','data')" value="导出Excle">
                     </div>
                     <div class="sel_div_right">
                         <input class="sel_input_right" oninput="javascript:selInput_users(this.value)" placeholder="按手机号搜索">
                     </div>
-                    <table class="list_table_user">
+                    <table class="list_table_user" id="list_user">
                         <tr class="list_table_tr_user">
                             <th class="list_table_th_user">选择</th>
                             <th class="list_table_th_user">用户手机号</th>

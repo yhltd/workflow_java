@@ -1,6 +1,8 @@
 .boby{
     height: 100%;
     width: 100%;
+    min-width: 800px;
+    min-height: 1300px;
 }
 
 .top_boby{

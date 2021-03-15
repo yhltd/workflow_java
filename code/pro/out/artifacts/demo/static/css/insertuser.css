@@ -1,0 +1,18 @@
+
+.ins_table{
+    width: 100%;
+    height: 430px;
+    background-color: #f2f2f2;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 70px;
+    padding: 30px;
+}
+.ins_table input{
+    width: 230px;
+    height: 30px;
+}
+.insbutton{
+    background-color: #1A232F;
+    color:white;
+}

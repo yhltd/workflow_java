@@ -1,0 +1,27 @@
+body{
+    text-align: center;
+}
+
+.tablegame{
+    width: 100%;
+    margin-top: 40px;
+    background-color: #f2f2f2;
+    text-align: center;
+    font-weight: bold;
+}
+.trgame{
+    height: 70px;
+    background-color: #2F4056;
+}
+.tdgame{
+    color: white;
+}
+.thgame{
+    padding-left: 20px;
+    border: none;
+    background-color: white;
+}
+
+.traddgame{
+    height: 60px;
+}

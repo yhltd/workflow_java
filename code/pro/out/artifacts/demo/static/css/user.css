@@ -269,3 +269,11 @@
     border-radius: 2px;
     margin-bottom: 9px;
 }
+.excelinput{
+    background-color: #30455a;
+    border: 1px solid #e6e6e6;
+    color: white;
+    width: 80px;
+    height: 25px;
+    margin-left: 300px;
+}

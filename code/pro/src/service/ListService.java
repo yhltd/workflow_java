@@ -1,7 +1,6 @@
 package service;
 
 import dao.BaseDao;
-
 import javaBean.GameInfo;
 import javaBean.Model;
 
@@ -18,7 +17,6 @@ public class ListService{
         dao = new BaseDao();
         String sql = "select g.*,m.name as m_name from zheng_020826_gameInfo as g,zheng_020826_model as m where g.model_id = m.id order by g.id";
         ResultSet rs = dao.SelectAll(sql,null);
-
         List<GameInfo> list = new ArrayList<GameInfo>();
         try {
             while(rs.next()){
@@ -27,6 +25,7 @@ public class ListService{
                 gameInfo.setName(rs.getString("name"));
                 gameInfo.setSpace(rs.getInt("space"));
                 gameInfo.setDate(rs.getDate("time"));
+                gameInfo.setNum(rs.getInt("amount"));
                 Model model = new Model();
                 model.setId(rs.getInt("model_id"));
                 model.setName(rs.getString("m_name"));

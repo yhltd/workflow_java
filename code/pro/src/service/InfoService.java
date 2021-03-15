@@ -3,6 +3,7 @@ package service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.sun.org.apache.xpath.internal.objects.XString;
 import dao.BaseDao;
 import javaBean.GameInfo;
 import javaBean.Model;
@@ -22,27 +23,58 @@ public class InfoService {
         dao = new BaseDao();
         Gson gson = new Gson();
         UserInfo userInfo = gson.fromJson(infoList, UserInfo.class);
-
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String time = sdf1.format(new Date());
-
         String sql = "";
         for(GameInfo gameInfo : userInfo.getInfoList()){
-            sql += "insert into zheng_020826_userInfo(number,game_id,time) values('"+userInfo.getNumber()+"','"+gameInfo.getId()+"','"+time+"');"+
-            "insert into ";
+            sql += "insert into zheng_020826_userInfo(number,game_id,time) values('"+userInfo.getNumber()+"',"+gameInfo.getId()+",getDate());";
         }
-
         int result = dao.AllUpdate(sql,null);
         return result;
+    }
+
+    public int newupfo(String infoList){
+        dao = new BaseDao();
+        Gson gson = new Gson();
+        UserInfo userInfo = gson.fromJson(infoList, UserInfo.class);
+        List<GameInfo> gameInfoList=selectamout(userInfo);
+        String sql = "";
+        for(GameInfo gameInfo : gameInfoList){
+            sql += "update zheng_020826_gameInfo set amount="+(gameInfo.getNum()+1)+"where id="+gameInfo.getId()+";";
+        }
+        int result = dao.AllUpdate(sql,null);
+        return result;
+    }
+
+    private List<GameInfo> selectamout(UserInfo userInfo) {
+        {
+            dao = new BaseDao();
+            String sql ="";
+            List<GameInfo> list = new ArrayList<>();
+            ResultSet rs = null;
+            for(GameInfo gameInfo : userInfo.getInfoList()){
+                sql = "select amount,id from zheng_020826_gameInfo where id="+gameInfo.getId();
+                try{
+                    rs = dao.SelectAll(sql,null);
+                    while (rs.next()) {
+                        GameInfo gameInfoa=new  GameInfo();
+                        gameInfoa.setNum(rs.getInt("amount"));
+                        gameInfoa.setId(rs.getInt("id"));
+                        list.add(gameInfoa);
+                    }
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }finally {
+                    dao.closeAll(null,null,rs);
+                }
+            }
+            return list;
+        }
     }
 
 
     public List<UserInfo> getList(){
         dao = new BaseDao();
-        String sql = "select number,convert(varchar(100), time,20) as time  from zheng_020826_userInfo GROUP BY number,time";
-
+        String sql = "select number,time  from zheng_020826_userInfo GROUP BY number,time";
         List<UserInfo> list = new ArrayList<>();
-
         ResultSet rs = null;
         try{
 
@@ -65,7 +97,6 @@ public class InfoService {
         dao = new BaseDao();
         String sql = "select game_id from zheng_020826_userInfo where number = '"+number+"' and time = '"+time+"' GROUP BY game_id";
         ResultSet rs = dao.SelectAll(sql,null);
-
         String result = "";
         try {
             while(rs.next()){
@@ -171,3 +202,4 @@ public class InfoService {
         return result;
     }
 }
+

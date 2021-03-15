@@ -1,14 +1,15 @@
 package service;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import dao.BaseDao;
-import javaBean.GameInfo;
-import javaBean.Model;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import dao.BaseDao;
+import javaBean.GameInfo;
+import javaBean.Model;
 
 public class userService {
 
@@ -88,7 +89,7 @@ public class userService {
         String sql = "";
         for(GameInfo g : gameInfoList){
             if(g.getId()<0){
-                sql += "insert zheng_020826_gameInfo(name,space,model_id,time) values('"+g.getName()+"','"+g.getSpace()+"','"+g.getModel().getId()+"',getDate());";
+                sql += "insert into zheng_020826_gameInfo(name,space,model_id,time) values('"+g.getName()+"','"+g.getSpace()+"','"+g.getModel().getId()+"',getDate());";
             }else{
                 sql += "update zheng_020826_gameInfo set name = '"+g.getName()+"',space = '"+g.getSpace()+"',model_id = '"+g.getModel().getId()+"' where id = '"+g.getId()+"';";
             }
